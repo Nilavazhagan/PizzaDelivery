@@ -73,6 +73,21 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+# Wwise
+/Binaries
+/Content/InitBank.uasset
+/Content/**/*_BuiltData.uasset
+/DerivedDataCache
+/PizzaDelivery.*
+!/PizzaDelivery.uproject
+!/PizzaDelivery.code-workspace
+/Intermediate
+/Plugins/GamepadUMGPlugin/Binaries/**
+/Plugins/GamepadUMGPlugin/Intermediate/**
+/Plugins/Wwise
+/Plugins/WwiseNiagara
+/Saved
+
 /.git
 /.idea
 /.vscode

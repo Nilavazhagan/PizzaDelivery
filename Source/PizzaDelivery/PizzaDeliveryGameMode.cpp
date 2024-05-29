@@ -3,6 +3,7 @@
 #include "PizzaDeliveryGameMode.h"
 #include "PizzaDeliveryPlayerController.h"
 #include "PizzaDeliveryCharacter.h"
+#include "GameFramework/HUD.h"
 #include "UObject/ConstructorHelpers.h"
 
 APizzaDeliveryGameMode::APizzaDeliveryGameMode()
@@ -22,5 +23,11 @@ APizzaDeliveryGameMode::APizzaDeliveryGameMode()
 	if (PlayerControllerBPClass.Class != NULL)
 	{
 		PlayerControllerClass = PlayerControllerBPClass.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<AHUD> HUDBPClass(TEXT("/Game/PizzaDelivery/UI/BP_HUD"));
+	if (HUDBPClass.Class != NULL)
+	{
+		HUDClass = HUDBPClass.Class;
 	}
 }

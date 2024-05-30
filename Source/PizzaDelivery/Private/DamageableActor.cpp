@@ -18,6 +18,20 @@ void ADamageableActor::BeginPlay()
 	Health = MaxHealth;
 }
 
+void ADamageableActor::DeactivateInvincibility()
+{
+	IsInvincible = false;
+}
+
+void ADamageableActor::ActivateInvincibility()
+{
+	IsInvincible = true;
+
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ADamageableActor::DeactivateInvincibility,
+	                                InvincibilityDuration, false);
+}
+
 // Called every frame
 void ADamageableActor::Tick(float DeltaTime)
 {
@@ -31,6 +45,9 @@ int ADamageableActor::GetHealth()
 
 void ADamageableActor::TakeDamage(int Damage)
 {
+	if (IsInvincible)
+		return;
+	
 	Health = FMath::Clamp(Health - Damage, 0, MaxHealth);
 	OnDamaged();
 

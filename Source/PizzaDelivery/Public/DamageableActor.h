@@ -21,6 +21,12 @@ protected:
 
 	UPROPERTY()
 	int Health;
+	
+	UPROPERTY()
+	bool IsInvincible = false;
+
+	UFUNCTION()
+	void DeactivateInvincibility();
 
 public:
 	// Called every frame
@@ -28,6 +34,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxHealth = 8;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float InvincibilityDuration = 5;
 	
 	UFUNCTION(BlueprintCallable)
 	virtual int GetHealth();
@@ -40,4 +49,7 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeath();
+
+	UFUNCTION(BlueprintCallable)
+	void ActivateInvincibility();
 };

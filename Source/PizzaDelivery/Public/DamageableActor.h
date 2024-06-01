@@ -21,7 +21,7 @@ protected:
 
 	UPROPERTY()
 	int Health;
-	
+
 	UPROPERTY()
 	bool IsInvincible = false;
 
@@ -37,7 +37,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float InvincibilityDuration = 5;
-	
+
 	UFUNCTION(BlueprintCallable)
 	virtual int GetHealth();
 

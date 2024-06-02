@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "DamageableActor.h"
-
 
 // Sets default values
 ADamageableActor::ADamageableActor()
@@ -29,7 +27,7 @@ void ADamageableActor::ActivateInvincibility()
 
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ADamageableActor::DeactivateInvincibility,
-	                                InvincibilityDuration, false);
+									InvincibilityDuration, false);
 }
 
 // Called every frame
@@ -47,7 +45,7 @@ void ADamageableActor::TakeDamage(int Damage)
 {
 	if (IsInvincible)
 		return;
-	
+
 	Health = FMath::Clamp(Health - Damage, 0, MaxHealth);
 	OnDamaged();
 
@@ -55,3 +53,7 @@ void ADamageableActor::TakeDamage(int Damage)
 		OnDeath();
 }
 
+void ADamageableActor::FullyHealCharacter()
+{
+	Health = MaxHealth;
+}

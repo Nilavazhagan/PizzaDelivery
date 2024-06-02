@@ -52,4 +52,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ActivateInvincibility();
+
+	UFUNCTION(BlueprintCallable)
+	void FullyHealCharacter();
 };

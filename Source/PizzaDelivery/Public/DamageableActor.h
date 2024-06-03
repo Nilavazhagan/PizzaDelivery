@@ -55,4 +55,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void FullyHealCharacter();
+
+	UFUNCTION(BlueprintCallable)
+	bool AmIInvincible();
 };

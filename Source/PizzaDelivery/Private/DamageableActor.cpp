@@ -57,3 +57,8 @@ void ADamageableActor::FullyHealCharacter()
 {
 	Health = MaxHealth;
 }
+
+bool ADamageableActor::AmIInvincible()
+{
+	return IsInvincible;
+}

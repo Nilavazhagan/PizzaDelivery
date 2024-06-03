@@ -22,11 +22,12 @@ protected:
 private:
 
 	UPROPERTY() UCharacterMovementComponent* CharMvmt;
-	UPROPERTY() bool WasPlayerInRange = false;
+	UPROPERTY() bool WasPlayerInChaseRange = false;
 	UPROPERTY() APawn* PlayerPawn;
 	UPROPERTY() FTimerHandle WaitTimerHandle;
 
 	UFUNCTION() bool IsPlayerInRange();
+	UFUNCTION() float GetDistanceFromPlayer();
 	UFUNCTION() void ChasePlayer();
 	UFUNCTION() void AbandonPlayerChase();
 
@@ -45,4 +46,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Student")
 	float WaitBeforeAbandoningChase = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Student")
+	float AttackRange = 100;
 };

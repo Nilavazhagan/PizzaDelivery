@@ -29,24 +29,30 @@ void AStudentCharacter::BeginPlay()
 
 bool AStudentCharacter::IsPlayerInRange()
 {
+	return GetDistanceFromPlayer() <= Range;
+}
+
+float AStudentCharacter::GetDistanceFromPlayer()
+{
 	FVector MyLocation = GetActorLocation();
 	FVector PlayerLocation = PlayerPawn->GetActorLocation();
 
 	float distanceFromPlayer = FVector::Distance(MyLocation, PlayerLocation);
 
-	return distanceFromPlayer <= Range;
+	return distanceFromPlayer;
 }
+
 
 void AStudentCharacter::ChasePlayer()
 {
 	AAIController* AIController = Cast<AAIController>(GetController());
-	AIController->GetBlackboardComponent()->SetValueAsBool(TEXT("IsPlayerInRange"), true);
+	AIController->GetBlackboardComponent()->SetValueAsBool(TEXT("IsPlayerInChaseRange"), true);
 }
 
 void AStudentCharacter::AbandonPlayerChase()
 {
 	AAIController* AIController = Cast<AAIController>(GetController());
-	AIController->GetBlackboardComponent()->SetValueAsBool(TEXT("IsPlayerInRange"), false);
+	AIController->GetBlackboardComponent()->SetValueAsBool(TEXT("IsPlayerInChaseRange"), false);
 }
 
 // Called every frame
@@ -54,13 +60,18 @@ void AStudentCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	const bool PlayerInRange = IsPlayerInRange();
+	const float DistanceFromPlayer = GetDistanceFromPlayer();
+	const bool PlayerInChaseRange = DistanceFromPlayer <= Range;
+	const bool PlayerInAttackRange = DistanceFromPlayer <= AttackRange;
 
-	if (PlayerInRange)
+	AAIController* AIController = Cast<AAIController>(GetController());
+	AIController->GetBlackboardComponent()->SetValueAsBool(TEXT("IsPlayerInAttackRange"), PlayerInAttackRange);
+
+	if (PlayerInChaseRange)
 	{
 		ChasePlayer();
 	}
-	else if (WasPlayerInRange == true && PlayerInRange == false)
+	else if (WasPlayerInChaseRange == true && PlayerInChaseRange == false)
 	{
 		// Player just left student's range - Wait for x seconds before abandoning the chase
 		if (WaitTimerHandle.IsValid())
@@ -70,7 +81,7 @@ void AStudentCharacter::Tick(float DeltaTime)
 		                                WaitBeforeAbandoningChase, false);
 	}
 
-	WasPlayerInRange = PlayerInRange;
+	WasPlayerInChaseRange = PlayerInChaseRange;
 }
 
 // Called to bind functionality to input
